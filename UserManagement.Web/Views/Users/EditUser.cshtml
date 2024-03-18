@@ -1,0 +1,57 @@
+﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+
+
+<h2>Edit User Details</h2>
+<form method="post" action="@Url.Action("EditUser", "Users")">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>Forename</th>
+                <td>
+                    <input type="text" asp-for="Forename" value="@Model.Forename" />
+                    <div><span asp-validation-for="Forename" class="text-danger"></span></div>
+                </td>
+            </tr>
+            <tr>
+                <th>Surname</th>
+                <td>
+                    <input type="text" asp-for="Surname" value="@Model.Surname" />
+                    <div><span asp-validation-for="Surname" class="text-danger"></span></div>
+                </td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>
+                    <input type="email" asp-for="Email" value="@Model.Email" />
+                    <div><span asp-validation-for="Email" class="text-danger"></span></div>
+                </td>
+            </tr>
+            <tr>
+                <th>Date of Birth</th>
+                <td>
+                    <input type="date" asp-for="DateOfBirth" value="@Model.DateOfBirth" />
+                    <div><span asp-validation-for="DateOfBirth" class="text-danger"></span></div>
+                </td>
+            </tr>
+            <tr>
+                <th>Account Active</th>
+                <td>
+                    <input type="checkbox" asp-for="IsActive" />
+                    <div><span asp-validation-for="IsActive" class="text-danger"></span></div>
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 1px;"></th>
+            </tr>
+        </table>
+        <div class="btn-group" role="group">
+            <a asp-controller="Users" asp-action="List" class="btn btn-default">Go Back</a>
+        </div>
+        <button type="submit" class="btn btn-primary float-end">Update</button>
+    </div>
+</form>
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+

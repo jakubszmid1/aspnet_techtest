@@ -1,0 +1,54 @@
+﻿@model UserManagement.Web.Models.Logs.LogListViewModel
+
+<h2>User List</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Log ID</th>
+                <th>Action Taken</th>
+                <th>Name of user</th>
+                <th>User ID</th>
+                <th>Log Date</th>
+                <th>Log Time</th>
+                <th style="width: 1px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.ActionTaken.ToString()
+                    </td>
+                    <td>
+                        @(item.Forename + " " + item.Surname)
+                    </td>
+                    <td>
+                        @item.UserId
+                    </td>
+                    <td>
+                        @item.Time.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @item.Time.ToString("HH:mm:ss")
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="btnToggleActions">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnToggleActions">
+                                <li><a asp-controller="Logs" asp-action="ViewLog" asp-route-id="@item.Id" class="dropdown-item">Log Details</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

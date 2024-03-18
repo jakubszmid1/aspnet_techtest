@@ -1,0 +1,49 @@
+﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+
+<h2>Delete User</h2>
+<h3>This cannot be undone!</h3>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Forename</th>
+            <td>
+                @Model.Forename
+            </td>
+        </tr>
+        <tr>
+            <th>Surname</th>
+            <td>
+                @Model.Surname
+            </td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>
+                @Model.Email
+            </td>
+        </tr>
+        <tr>
+            <th>Date of Birth</th>
+            <td>
+                @Model.DateOfBirth
+            </td>
+        </tr>
+        <tr>
+            <th>Account Active</th>
+            <td>
+                @(Model.IsActive ? "Yes" : "No")
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 1px;"></th>
+        </tr>
+    </table>
+</div>
+
+<div>
+    <form asp-controller="Users" asp-action="DeleteUser" asp-route-id="@Model.Id" method="post">
+        <button type="submit" class="btn btn-danger float-end">Delete User</button>
+    </form>
+</div>
+
