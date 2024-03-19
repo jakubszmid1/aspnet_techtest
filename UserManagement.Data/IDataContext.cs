@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UserManagement.Models;
+using System.Threading.Tasks;
 
 namespace UserManagement.Data;
 
@@ -30,4 +30,9 @@ public interface IDataContext
     void Update<TEntity>(TEntity entity) where TEntity : class;
 
     void Delete<TEntity>(TEntity entity) where TEntity : class;
+
+    Task<List<TEntity>> GetAllAsync<TEntity>() where TEntity : class;
+    Task CreateAsync<TEntity>(TEntity entity) where TEntity : class;
+    Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class;
+    Task DeleteAsync<TEntity>(TEntity entity) where TEntity : class;
 }

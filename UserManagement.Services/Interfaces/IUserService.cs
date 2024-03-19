@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using UserManagement.Models;
 
 namespace UserManagement.Services.Domain.Interfaces;
@@ -20,4 +21,12 @@ public interface IUserService
     void Update(User user);
 
     void Delete(long id);
+
+    Task<User?> GetByIdAsync(long id);
+    Task<IEnumerable<User>> GetAllAsync();
+    Task<IEnumerable<User>> FilterByActiveAsync(bool isActive);
+    Task DeleteAsync(long id);
+    Task UpdateAsync(User user);
+    Task AddAsync(User user);
+
 }

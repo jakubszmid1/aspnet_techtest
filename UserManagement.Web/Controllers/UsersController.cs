@@ -90,8 +90,8 @@ public class UsersController : Controller
             return View();
         }
         var user = MapToUser(userViewModel);
-        _userService.Add(user);
-        _logService.Add(user, LogActionType.Create);
+        _userService.AddAsync(user);
+        _logService.AddAsync(user, LogActionType.Create);
         return RedirectToAction("List");
     }
 
@@ -104,8 +104,8 @@ public class UsersController : Controller
             
         }
         var user = MapToUser(userViewModel);
-        _logService.Add(user, LogActionType.Update);
-        _userService.Update(user);
+        _logService.AddAsync(user, LogActionType.Update);
+        _userService.UpdateAsync(user);
         return RedirectToAction("List");
     }
 
@@ -120,8 +120,8 @@ public class UsersController : Controller
         var user = _userService.GetById(id);
         if (user == null)
             return View("UserNotFound");
-        _logService.Add(user, LogActionType.Delete);
-        _userService.Delete(id);
+        _logService.AddAsync(user, LogActionType.Delete);
+        _userService.DeleteAsync(id);
         return RedirectToAction("List");
     }
 

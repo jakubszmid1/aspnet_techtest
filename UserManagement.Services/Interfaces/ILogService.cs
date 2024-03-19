@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UserManagement.Models;
 using System;
+using System.Threading.Tasks;
 
 namespace UserManagement.Services.Domain.Interfaces;
 public interface ILogService
@@ -17,4 +18,9 @@ public interface ILogService
     bool EmailChanged(Log log);
     bool IsActiveChanged(Log log);
     bool DateOfBirthChanged(Log log);
+    Task<IEnumerable<Log>> GetAllAsync();
+    Task AddAsync(Log log);
+    Task AddAsync(User user, LogActionType action);
+    Task<IEnumerable<Log>> GetByUserIdAsync(long userId);
+    Task<IEnumerable<Log>> GetByLogIdAsync(long logId);
 }

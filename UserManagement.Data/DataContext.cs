@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using UserManagement.Models;
 
 namespace UserManagement.Data;
@@ -47,7 +46,8 @@ public class DataContext : DbContext, IDataContext
         );
     }
 
-    public DbSet<User>? Users { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Log> Logs { get; set; }
 
     public IQueryable<TEntity> GetAll<TEntity>() where TEntity : class
         => base.Set<TEntity>();
@@ -69,4 +69,25 @@ public class DataContext : DbContext, IDataContext
         base.Remove(entity);
         SaveChanges();
     }
+    public async Task<List<TEntity>> GetAllAsync<TEntity>() where TEntity : class
+        => await base.Set<TEntity>().ToListAsync();
+
+    public async Task CreateAsync<TEntity>(TEntity entity) where TEntity : class
+    {
+        await base.AddAsync(entity);
+        await SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync<TEntity>(TEntity entity) where TEntity : class
+    {
+        base.Update(entity);
+        await SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync<TEntity>(TEntity entity) where TEntity : class
+    {
+        base.Remove(entity);
+        await SaveChangesAsync();
+    }
+
 }

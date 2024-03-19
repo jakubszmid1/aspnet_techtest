@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,7 +14,7 @@ public class Log
     //set the primary key and auto increment
     [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
-    public long? previousLogId { get; set; } // can be null, can be used to link logs together and show a history of changes
+    public long? previousLogId { get; set; } // can be null, can be used to link logs together and compare a history of changes
     public long UserId { get; set; }
     public DateTime Time { get; set; } = DateTime.Now;
     public LogActionType ActionTaken { get; set; }

@@ -1,12 +1,8 @@
 ﻿using System.Linq;
 using UserManagement.Services.Domain.Interfaces;
-using UserManagement.Web.Models.Users;
 using UserManagement.Models;
 using System;
 using UserManagement.Web.Models.Logs;
-using static System.Collections.Specialized.BitVector32;
-using System.Diagnostics;
-using Microsoft.VisualBasic;
 
 namespace UserManagement.WebMS.Controllers;
 

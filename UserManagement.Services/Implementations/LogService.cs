@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using UserManagement.Data;
 using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
@@ -73,6 +72,45 @@ internal class LogService : ILogService
                 .Skip((page - 1) * logsPerPage)
                 .Take(logsPerPage)
         );
+
+    public async Task<IEnumerable<Log>> GetAllAsync() => await _dataAccess.GetAllAsync<Log>();
+
+    public async Task AddAsync(Log log)
+    {
+        log.previousLogId = (await _dataAccess.GetAllAsync<Log>())
+            .Where(x => x.UserId == log.UserId)
+            .OrderByDescending(x => x.Time)
+            .Select(x => x.Id)
+            .FirstOrDefault();
+        await _dataAccess.CreateAsync(log).ConfigureAwait(false);
+    }
+
+    public async Task AddAsync(User user, LogActionType action)
+    {
+        var log = new Log
+        {
+            UserId = user.Id,
+            ActionTaken = action
+        };
+
+        log.Forename = user.Forename;
+        log.Surname = user.Surname;
+        log.Email = user.Email;
+        log.IsActive = user.IsActive;
+        log.DateOfBirth = user.DateOfBirth;
+        await AddAsync(log).ConfigureAwait(false);
+    }
+
+    public async Task<IEnumerable<Log>> GetByLogIdAsync(long id) => (
+        (await _dataAccess.GetAllAsync<Log>())
+            .Where(x => x.Id == id)
+            );
+
+    public async Task<IEnumerable<Log>> GetByUserIdAsync(long userId) => (
+        (await _dataAccess.GetAllAsync<Log>())
+                   .Where(x => x.UserId == userId)
+            );
+
 
     public bool ForenameChanged(Log log)
     {
